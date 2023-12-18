@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+label {
+  font-weight: 400;
+}
+
+textarea {
+  min-height: 100px;
+}
+
+.btn {
+  border-radius: 14px;
+  background: #1b3adb;
+  width: 90%;
+  padding: 1.5rem;
+  flex-shrink: 0;
+  color: #fff;
+  text-align: center;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+input,
+select,
+textarea {
+  border-width: 1.8px;
+  padding: 1rem;
+  width: 100%;
+  outline: none;
+  border-radius: 0.75rem;
+}
