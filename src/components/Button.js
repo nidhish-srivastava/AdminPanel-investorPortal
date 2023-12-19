@@ -16,6 +16,7 @@ export default function Button({
   className,
   overrideClassNames = false,
   children,
+  ...restProps
 }) {
   let defaultClassName =
     "inline-flex items-center flex-1 justify-center rounded-lg bg-blue-600 w-[70%] py-3 flex-shrink-0 text-white text-center text-[1.1rem] font-semibold"
@@ -32,6 +33,7 @@ export default function Button({
         overrideClassNames ? className : classNames(defaultClassName, className)
       }
       disabled={disable}
+      {...restProps}
     >
       {children}
     </button>
