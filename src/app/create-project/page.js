@@ -5,6 +5,7 @@ import { collection,addDoc } from 'firebase/firestore'
 import { db } from '@/utils/firebase'
 import toast, { Toaster } from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
+import Button from '@/components/Button'
 
 function CreateProject() {
   const [project,setProject] = useState({
@@ -16,7 +17,7 @@ function CreateProject() {
     description : "",
     investmentReason : "",
     investmentConditions : "",
-    investmentProgress : ""
+    investmentProgress : [{amountInvested : 0,investorName : ""}]
   })
   const router = useRouter()
   const projectCollectionRef = collection(db, "projects");
@@ -35,7 +36,6 @@ function CreateProject() {
       toast.error("Error,Try Again!!!")
     }
   }
-  console.log(project);
   return (
     <>
     <Toaster/>
@@ -81,9 +81,9 @@ function CreateProject() {
             </div>
       </div>
       <div className='mx-auto my-4 mb-[8rem] text-center'>
-      <button className="btn " type="submit" onClick={submitProjectHandler}>
+      <Button onClick={submitProjectHandler}>
                Submit
-            </button>
+            </Button>
       </div>
       <div className=''>
       <BottomNavBar />

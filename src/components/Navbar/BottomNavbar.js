@@ -6,7 +6,7 @@ import ProjectIconSvg from '../Icons/ProjectIconSvg'
 
 function BottomNavBar() {
   return (
-    <div className="fixed bottom-0 py-4 px-3 w-[100%] flex justify-between items-center rounded-tl-lg rounded-tr-lg bg-blue-700 shadow-md">
+    <div className="fixed bottom-0 py-3 px-5 w-[100%] flex justify-between items-center rounded-tl-lg rounded-tr-lg bg-blue-700 shadow-md">
     <Link href={`/`}>
    <HomeIconSvg/>
     </Link>

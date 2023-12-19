@@ -10,19 +10,6 @@ textarea {
   min-height: 100px;
 }
 
-.btn {
-  border-radius: 14px;
-  background: #1b3adb;
-  width: 90%;
-  padding: 1.5rem;
-  flex-shrink: 0;
-  color: #fff;
-  text-align: center;
-  font-size: 17px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-}
 
 input,
 select,

@@ -12,7 +12,7 @@ function MyProjects() {
   const fetchMyPostsHandler = async()=>{
     try {
       const data = await getDocs(query(projectCollectionRef,where('leader','==','Nidhish')))
-      console.log(data);
+      // console.log(data);
       setMyProjects(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
     } catch (error) {
       
@@ -25,8 +25,8 @@ function MyProjects() {
   return (
     <>
         <h1 className="text-indigo-700 text-center text-[25px] not-italic font-bold">My Projects</h1>
-    {myProjects.map(e=>(
-      <ProjectCard projectObj={e}/>
+    {myProjects.map((e,i)=>(
+      <ProjectCard key={i} projectObj={e}/>
     ))}
     <BottomNavBar/>
     </>

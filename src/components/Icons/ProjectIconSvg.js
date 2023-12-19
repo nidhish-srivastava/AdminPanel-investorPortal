@@ -5,7 +5,7 @@ function ProjectIconSvg() {
      <svg
       xmlns="http://www.w3.org/2000/svg"
       className="svg-icon"
-      style={{ width: "2em", height: "2em", verticalAlign: "middle",color : "white" }}
+      style={{ width: "24px", height: "24px", verticalAlign: "middle",color : "white" }}
       fill="currentColor"
       overflow="hidden"
       viewBox="0 0 1024 1024"
