@@ -1,6 +1,4 @@
 "use client"
-// import PrevIcon from "@/components/PrevIcon"
-import Link from "next/link"
 import SampleProject from '../../../assets/SampleProject.png'
 import Image from "next/image"
 import Header from "@/components/Navbar/HeaderBackNav"
@@ -9,29 +7,27 @@ import { useEffect, useState } from "react"
 import { doc, getDoc } from "firebase/firestore"
 import { db } from "@/utils/firebase";
 import { sumHandler } from "@/utils"
-import Button from "@/components/Button"
-
 
 function page() {
-    const [obj,setObj] = useState({})
+    const [obj, setObj] = useState({})
     const param = useParams()
     const projectDocRef = doc(db, `projects/${param.projectId}`)
 
-    const fetchDetails = async() =>{
+    const fetchDetails = async () => {
         try {
             const docSnapshot = await getDoc(projectDocRef)
-            if(docSnapshot.exists()){
+            if (docSnapshot.exists()) {
                 const docData = docSnapshot.data();
-                // console.log(docData);
+                console.log(docData);
                 setObj(docData)
             }
         } catch (error) {
-            
+
         }
-    }    
-    useEffect(()=>{
+    }
+    useEffect(() => {
         fetchDetails()
-    },[])
+    }, [])
 
     return (
         <>
@@ -55,7 +51,16 @@ function page() {
                     <p>
                         A total of &#8377; {sumHandler(obj.investmentProgress)} is invested
                         <br />
-                       Amount required : &#8377; {obj?.cost - sumHandler(obj.investmentProgress)}</p>
+                        Amount required : &#8377; {obj?.cost - sumHandler(obj.investmentProgress)}
+                    </p>
+                </div>
+                <div className="">
+                    <h3 className="text-[18px] font-medium text-violet-700 mb-2">Investor Details</h3>
+                    {obj?.investmentProgress?.map(e => (
+                        <div>
+                            <h3>{e.investorName} - &#8377;{e.amountInvested}</h3>
+                        </div>
+                    ))}
                 </div>
             </main>
         </>

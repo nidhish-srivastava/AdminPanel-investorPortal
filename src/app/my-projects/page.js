@@ -11,7 +11,7 @@ function MyProjects() {
 
   const fetchMyPostsHandler = async()=>{
     try {
-      const data = await getDocs(query(projectCollectionRef,where('leader','==','Nidhish')))
+      const data = await getDocs(query(projectCollectionRef,where('leader','==','Kushal')))
       // console.log(data);
       setMyProjects(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
     } catch (error) {

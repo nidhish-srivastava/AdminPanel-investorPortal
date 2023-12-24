@@ -36,11 +36,11 @@ function Home() {
     <HomePageHeader/>
     <br />
     <span className="ml-4 rounded-md  bg-blue-200 bg-opacity-19 text-blue-800 text-sm font-bold px-4 py-2">Popular Projects</span>
-    <main className="mb-[5rem]">
+    {/* <main className="mb-[5rem]">
     {popularProjects.map((e,i)=>(
       <ProjectCard key={i} projectObj={e}/>
       ))}
-      </main>
+      </main> */}
     <BottomNavBar/>
     </>
   )

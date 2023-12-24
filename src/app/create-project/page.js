@@ -1,36 +1,36 @@
 "use client"
 import BottomNavBar from '@/components/Navbar/BottomNavbar'
 import { useState } from 'react'
-import { collection,addDoc } from 'firebase/firestore'
+import { collection, addDoc } from 'firebase/firestore'
 import { db } from '@/utils/firebase'
 import toast, { Toaster } from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import Button from '@/components/Button'
 
 function CreateProject() {
-  const [project,setProject] = useState({
-    name : "",
-    leader : "",
-    cost : null,
-    startingDate : "",
-    endingDate : "",
-    description : "",
-    investmentReason : "",
-    investmentConditions : "",
-    investmentProgress : [{amountInvested : 0,investorName : ""}]
+  const [project, setProject] = useState({
+    name: "",
+    leader: "",
+    cost: null,
+    startingDate: "",
+    endingDate: "",
+    description: "",
+    investmentReason: "",
+    investmentConditions: "",
+    investmentProgress: [{ amountInvested: 0, investorName: "" }]
   })
   const router = useRouter()
   const projectCollectionRef = collection(db, "projects");
-  const changeHandler = (e)=>{
-    setProject((prev)=>({...prev,[e.target.name] : e.target.value}))
+  const changeHandler = (e) => {
+    setProject((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
-  const submitProjectHandler = async()=>{
+  const submitProjectHandler = async () => {
     try {
-      const response = await addDoc(projectCollectionRef,{...project})
-      if(response.id!=null){
+      const response = await addDoc(projectCollectionRef, { ...project })
+      if (response.id != null) {
         toast.success("Project Created Successfully")
-          await new Promise(resolve => setTimeout(resolve, 1000));
-          router.push('/')
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        router.push('/')
       }
     } catch (error) {
       toast.error("Error,Try Again!!!")
@@ -38,7 +38,7 @@ function CreateProject() {
   }
   return (
     <>
-    <Toaster/>
+      <Toaster />
       <div className='flex flex-col p-4 gap-8'>
         <h1 className="text-indigo-700 text-center text-[25px] not-italic font-bold">Create Project</h1>
         <div>
@@ -59,34 +59,34 @@ function CreateProject() {
         </div>
         <div>
           <label htmlFor="project-end-date">Project Expected Ending Date *</label>
-          <input id="project-end-date" type="date" name='endingDate' value={project.endingDate} onChange={changeHandler}  />
+          <input id="project-end-date" type="date" name='endingDate' value={project.endingDate} onChange={changeHandler} />
         </div>
         <div>
           <label htmlFor="project-description">Project Description *</label>
-          <textarea  id="project-description" placeholder="Describe the project" name='description' value={project.description} onChange={changeHandler} />
+          <textarea id="project-description" placeholder="Describe the project" name='description' value={project.description} onChange={changeHandler} />
         </div>
         <div>
           <label htmlFor="investment-reason">Project Investment Reason *</label>
-          <textarea  id="investment-reason" name='investmentReason' value={project.investmentReason} onChange={changeHandler} placeholder="Explain why should the investor invest ??" />
+          <textarea id="investment-reason" name='investmentReason' value={project.investmentReason} onChange={changeHandler} placeholder="Explain why should the investor invest ??" />
         </div>
         <div>
-              <label htmlFor="investment-conditions">Investment Conditions *</label>
-              <textarea
-                id="investment-conditions"
-                name='investmentConditions'
-                value={project.investmentConditions}
-                onChange={changeHandler}
-                placeholder="Enter the investment conditions"
-              />
-            </div>
+          <label htmlFor="investment-conditions">Investment Conditions *</label>
+          <textarea
+            id="investment-conditions"
+            name='investmentConditions'
+            value={project.investmentConditions}
+            onChange={changeHandler}
+            placeholder="Enter the investment conditions"
+          />
+        </div>
       </div>
       <div className='mx-auto my-4 mb-[8rem] text-center'>
-      <Button onClick={submitProjectHandler}>
-               Submit
-            </Button>
+        <Button onClick={submitProjectHandler}>
+          Submit
+        </Button>
       </div>
       <div className=''>
-      <BottomNavBar />
+        <BottomNavBar />
       </div>
     </>
   )
@@ -146,14 +146,14 @@ export default CreateProject
 //                 placeholder="Enter the investment progress"
 //               />
 //             </div>
-            // <div className="space-y-2">
-            //   <Label htmlFor="investment-conditions">Investment Conditions</Label>
-            //   <Textarea
-            //     className="min-h-[100px]"
-            //     id="investment-conditions"
-            //     placeholder="Enter the investment conditions"
-            //   />
-            // </div>
+// <div className="space-y-2">
+//   <Label htmlFor="investment-conditions">Investment Conditions</Label>
+//   <Textarea
+//     className="min-h-[100px]"
+//     id="investment-conditions"
+//     placeholder="Enter the investment conditions"
+//   />
+// </div>
 //             <Button className="w-full" type="submit">
 //               Submit
 //             </Button>
