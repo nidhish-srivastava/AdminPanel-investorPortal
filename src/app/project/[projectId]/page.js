@@ -11,6 +11,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import RupeeIcon from "@/components/Icons/RupeeIcon"
 import Button from '@/components/Button'
 import { LoaderIcon } from 'react-hot-toast'
+import Link from 'next/link'
 
 function Page() {
     const [obj, setObj] = useState({})
@@ -98,6 +99,14 @@ function Page() {
                             <h3 className="label-content"><RupeeIcon /> {investmentInterestDetails?.investmentAmount}</h3>
                         </div>
                     </section>
+                    <div className='flex gap-2 justify-center mt-12 items-center'>
+                        <Link href={`${param.projectId}/create-report`}>
+                        <Button className={`p-4 text-sm`}>Create a Report</Button>
+                        </Link>
+                        <Link href={`/`}>
+                        <Button className={`p-4 text-sm`}>View Suggestions</Button>
+                        </Link>
+                    </div>
                     <div className="text-center mt-12">
                         {investmentInterestDetails.approved ? <Button disable={true}>Approved</Button> : 
                         <Button className={`btn border-none ${btnLoading ? "opacity-80" : ""}`} onClick={approveInvestment}>
