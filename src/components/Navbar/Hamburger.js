@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Link from "next/link";
 
 function Hamburger() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,7 +20,7 @@ function Hamburger() {
        <div className="absolute right-5 top-5">
          <div className="bg-white rounded shadow-md flex flex-col gap-4 p-4 min-h-[10rem] cursor-pointer" onClick={toggleModal}>
            {/* <Link href={`/my-projects`}>My Projects</Link> */}
-           <Link href={`/Nidhish`}>Profile</Link>
+           <div>Log Out</div>
          </div>
        </div>
      ) : null}

@@ -70,7 +70,7 @@ function CreateProject() {
           <textarea id="investment-reason" name='investmentReason' value={project.investmentReason} onChange={changeHandler} placeholder="Explain why should the investor invest ??" />
         </div>
         <div>
-          <label htmlFor="investment-conditions">Investment Conditions *</label>
+          <label htmlFor="investment-conditions">Investment Conditions (if any)</label>
           <textarea
             id="investment-conditions"
             name='investmentConditions'
@@ -79,9 +79,13 @@ function CreateProject() {
             placeholder="Enter the investment conditions"
           />
         </div>
+        <div>
+          <label htmlFor="leader-phoneNumber">Leader's Phone Number</label>
+          <input type="text" placeholder="+91 ..."/>
+        </div>
       </div>
-      <div className='mx-auto my-4 mb-[8rem] text-center'>
-        <Button onClick={submitProjectHandler}>
+      <div className='my-4 mb-[8rem] text-center'>
+        <Button className={`w-[80%]`} onClick={submitProjectHandler}>
           Submit
         </Button>
       </div>

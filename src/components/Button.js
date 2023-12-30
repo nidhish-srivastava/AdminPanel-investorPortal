@@ -1,14 +1,4 @@
 
-// function Button({classname,children,onClick}) {
-//   return (
-//     <button className={`rounded-lg bg-blue-600 w-[90%] p-4 flex-shrink-0 text-white text-center text-lg font-semibold ${classname ? classname : ""}`} onClick={onClick}>
-//         {children}
-//     </button>
-//   )
-// }
-
-// export default Button
-
 import { classNames } from "@/utils";
 
 export default function Button({
@@ -19,7 +9,7 @@ export default function Button({
   ...restProps
 }) {
   let defaultClassName =
-    "inline-flex items-center flex-1 justify-center rounded-lg bg-blue-600 w-[70%] py-3 flex-shrink-0 text-white text-center text-[1.1rem] font-semibold"
+    "rounded-[14px] bg-violet-700 p-[.8rem] text-white text-center text-[17px] font-semibold"
   !disable
     ? null
     : (defaultClassName += disable
