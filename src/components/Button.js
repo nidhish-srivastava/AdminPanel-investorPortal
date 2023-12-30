@@ -13,7 +13,7 @@ export default function Button({
   !disable
     ? null
     : (defaultClassName += disable
-        ? " cursor-not-allowed "
+        ? " cursor-not-allowed opacity-80"
         : " cursor-pointer");
 
 
