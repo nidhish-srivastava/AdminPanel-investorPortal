@@ -13,7 +13,7 @@ function BottomNavBar() {
     <Link href={`/create-project`}>
    <CreateIconSvg/>
     </Link>
-    <Link href={`/`}>
+    <Link href={`/create-account`}>
         <ProjectIconSvg/>
     </Link>
   </div>
