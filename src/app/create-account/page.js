@@ -70,8 +70,16 @@ function CreateAccount() {
                     <input name="password" required type="text" placeholder="Create Password" value={investorDetails.password} onChange={changeHandler} />
                 </div>
                 <div>
-                    <label htmlFor="name">Enter Investor's Name</label>
+                    <label htmlFor="name" className="create-acc-label">Enter Investor's Name</label>
                     <input type="text" placeholder="Name..." name="name" value={investorDetails.name} onChange={changeHandler} />
+                </div>
+                <div>
+                    <label htmlFor="" className="create-acc-label">Enter Investment Amount</label>
+                    <input type="text" placeholder="amount" />
+                </div>
+                <div>
+                    <label htmlFor="" className="create-acc-label">Enter Project Name</label>
+                    <input type="text" name="" id="" placeholder="projectName" />
                 </div>
             <Button className={`btn border-none ${loading ? "opacity-80" : ""}`} onClick={createAccHandler}>
             {loading ? <div className="loader">
