@@ -6,6 +6,7 @@ import { useState } from "react"
 import toast, { LoaderIcon, Toaster } from "react-hot-toast"
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/utils/firebase";
+import Header from "@/components/Navbar/HeaderBackNav"
 
 function CreateAccount() {
     const usersCollectionRef = collection(db,"users")
@@ -13,7 +14,7 @@ function CreateAccount() {
     const [investorDetails, setInvestorDetails] = useState({
         email: "",
         password: "",
-        name: ""
+        fullName: ""
     })
     const changeHandler = (e) => {
         const { name, value } = e.target
@@ -33,16 +34,16 @@ function CreateAccount() {
         }
         setLoading(true)
         try {
-            const {email,name,password} = investorDetails
+            const {email,fullName,password} = investorDetails
             const response = await createUserWithEmailAndPassword(auth, email, password)
             const userId = response?.user?.uid
             if (userId?.length > 1) {
                 try {
-                    const res = await addDoc(usersCollectionRef,{email,name})
+                    const res = await addDoc(usersCollectionRef,{email,fullName})
                     if(res.id!=null){
                         toast.success("Account created successfully")
                         setLoading(false)
-                        setInvestorDetails({name:"",password:"",email:""})
+                        setInvestorDetails({fullName:"",password:"",email:""})
                     }
                 } catch (error) {
              toast.error("Error while creating acc,Check credentials properly")    
@@ -57,9 +58,10 @@ function CreateAccount() {
     }
 
     return (
-        <main>
+        <>
+        <Header route={`create`}/>
             <Toaster/>
-            <h3 className="font-bold text-center text-xl mt-4">Create Account for Investor</h3>
+            <h3 className="heading-style-1">Create Account for Investor</h3>
             <div className="w-[90%] mx-auto flex flex-col gap-12 mt-12 mb-4">
                 <div>
                     <label htmlFor="email" className="create-acc-label">Enter email</label>
@@ -71,7 +73,7 @@ function CreateAccount() {
                 </div>
                 <div>
                     <label htmlFor="name" className="create-acc-label">Enter Investor's Name</label>
-                    <input type="text" placeholder="Name..." name="name" value={investorDetails.name} onChange={changeHandler} />
+                    <input type="text" placeholder="Name..." name="fullName" value={investorDetails.fullName} onChange={changeHandler} />
                 </div>
                 {/* <div>
                     <label htmlFor="" className="create-acc-label">Enter Investment Amount</label>
@@ -88,7 +90,7 @@ function CreateAccount() {
             </Button>
             </div>
 
-        </main>
+        </>
     )
 }
 

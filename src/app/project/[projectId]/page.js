@@ -85,7 +85,7 @@ function Page() {
                             </section>
                         </div>
                     </section>
-                    <section className="grid `w-[90%]">
+                    <section className="grid">
                         <div className="text-center">
                             <label htmlFor="" className="label">Investor Name</label>
                             <h3 className="label-content">{investmentInterestDetails?.fullName}</h3>
@@ -99,14 +99,14 @@ function Page() {
                             <h3 className="label-content"><RupeeIcon /> {investmentInterestDetails?.investmentAmount}</h3>
                         </div>
                     </section>
-                    <div className='flex gap-2 justify-center mt-12 items-center'>
+                    {/* <div className='flex gap-2 justify-center mt-12 items-center'>
                         <Link href={`${param.projectId}/create-report`}>
                         <Button className={`p-4 text-sm`}>Create a Report</Button>
                         </Link>
                         <Link href={`/`}>
                         <Button className={`p-4 text-sm`}>View Suggestions</Button>
                         </Link>
-                    </div>
+                    </div> */}
                     <div className="text-center mt-12">
                         {investmentInterestDetails.approved ? <Button disable={true}>Approved</Button> : 
                         <Button className={`btn border-none ${btnLoading ? "opacity-80" : ""}`} onClick={approveInvestment}>

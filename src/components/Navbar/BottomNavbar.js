@@ -10,10 +10,10 @@ function BottomNavBar() {
     <Link href={`/`}>
    <HomeIconSvg/>
     </Link>
-    <Link href={`/create-project`}>
+    <Link href={`/create`}>
    <CreateIconSvg/>
     </Link>
-    <Link href={`/create-account`}>
+    <Link href={`/manage`}>
         <ProjectIconSvg/>
     </Link>
   </div>

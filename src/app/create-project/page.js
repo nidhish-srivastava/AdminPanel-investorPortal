@@ -6,6 +6,7 @@ import { db } from '@/utils/firebase'
 import toast, { Toaster } from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import Button from '@/components/Button'
+import Header from '@/components/Navbar/HeaderBackNav'
 
 function CreateProject() {
   const [project, setProject] = useState({
@@ -17,7 +18,7 @@ function CreateProject() {
     description: "",
     investmentReason: "",
     investmentConditions: "",
-    investmentProgress: [{ amountInvested: 0, investorName: "" }]
+    investmentProgress: []
   })
   const router = useRouter()
   const projectCollectionRef = collection(db, "projects");
@@ -38,6 +39,7 @@ function CreateProject() {
   }
   return (
     <>
+    <Header route={`create`}/>
       <Toaster />
       <div className='flex flex-col p-4 gap-8'>
         <h1 className="text-indigo-700 text-center text-[25px] not-italic font-bold">Create Project</h1>

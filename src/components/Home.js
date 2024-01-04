@@ -7,6 +7,7 @@ import Hamburger from "./Navbar/Hamburger";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import InvestorCard from "./InvestorCard";
+import Header from "./Navbar/Header";
 
 
 function Home() {
@@ -30,12 +31,7 @@ function Home() {
   }, [])
   return (
     <>
-     <Hamburger/>
-      <header className="flex items-center gap-2 p-4 relative -z-[1] rounded-b-lg bg-blue-700 shadow-md">
-        <h2 className="font-semibold text-white">
-          Admin Panel
-        </h2>
-      </header>
+     <Header/>
       <BottomNavBar />
       {loading ?  <div style={{width : "80%",margin :"4rem auto"}}>
             <Skeleton count={5}/>
