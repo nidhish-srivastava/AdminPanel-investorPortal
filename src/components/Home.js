@@ -3,7 +3,6 @@ import BottomNavBar from "./Navbar/BottomNavbar";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/utils/firebase";
-import Hamburger from "./Navbar/Hamburger";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import InvestorCard from "./InvestorCard";

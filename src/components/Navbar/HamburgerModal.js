@@ -1,3 +1,5 @@
+"use client"
+import Link from "next/link";
 import { useState } from "react";
 
 function Hamburger() {
@@ -25,6 +27,7 @@ function Hamburger() {
        <div className="absolute right-5 top-5">
          <div className="bg-white rounded shadow-md flex flex-col gap-4 p-4 min-h-[8rem] z-12 cursor-pointer" onClick={toggleModal}>
            {/* <Link href={`/my-projects`}>My Projects</Link> */}
+           <Link href={`/investors`}>View Investors</Link>
            <button onClick={logout}>Log Out</button>
          </div>
        </div>

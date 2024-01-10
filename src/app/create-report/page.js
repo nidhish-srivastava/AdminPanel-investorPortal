@@ -1,4 +1,3 @@
-// CreateReport.js
 "use client"
 import Button from '@/components/Button';
 import Header from '@/components/Navbar/HeaderBackNav';
@@ -53,7 +52,7 @@ function CreateReport() {
           className="bg-green-500 text-white px-4 py-2 rounded cursor-pointer"
           onClick={handleButtonClick}
         >
-          Upload PDF
+          Upload Report
         </button>
         <input
           ref={fileInputRef}

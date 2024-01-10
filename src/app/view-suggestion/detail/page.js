@@ -7,7 +7,6 @@ function Detail() {
     useEffect(()=>{
         setDetail(JSON.parse(sessionStorage.getItem("suggestion")))
     },[])
-    console.log(detail);
   return (
     <div>
         <div onClick={()=>sessionStorage.removeItem("suggestion")}>
