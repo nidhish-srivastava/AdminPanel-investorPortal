@@ -31,6 +31,7 @@ function ViewSuggestion() {
         <>
             <Header route={`manage`} />
             <h3 className="heading-style-1"> Suggestions</h3>
+            <h4 className="p-2 mt-4"><b>{suggestions?.length}</b> suggestion </h4>
                 {suggestions.map(e => (
                     <div key={e.id} className="flex gap-12 justify-around items-center mt-8 p-4 rounded-md bg-blue-100">
                         <Image

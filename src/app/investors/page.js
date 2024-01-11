@@ -25,6 +25,8 @@ function Investors() {
     <>
     <Header/>
     <BottomNavBar/>
+    <h2 className=" heading-style-1">List of Investors</h2>
+    <h3 className="px-4 mt-4"><b>{investors?.length}</b> Investors</h3>
     <div className="mb-24">
       {investors?.map(e=>(
         <InvestorCard fetchInvestor={true} key={e?.id} investorObj={e}/>
