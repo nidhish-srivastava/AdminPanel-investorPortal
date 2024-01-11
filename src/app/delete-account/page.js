@@ -5,11 +5,13 @@ import SelectInvestor from "@/components/SelectInvestor"
 import { db } from "@/utils/firebase"
 import { deleteUser, getAuth } from "firebase/auth"
 import { deleteDoc, doc } from "firebase/firestore"
+import { useRouter } from "next/navigation"
 import { useEffect, useMemo, useState } from "react"
 import toast, { Toaster } from "react-hot-toast"
 
 function DeleteAccountOfInvestor() {
-  const auth = getAuth()
+  // const auth = getAuth()
+  const router = useRouter()
   const [investors,setInvestors] = useState([])
   const [selectedInvestorDropDownState,setSelectedInvestorDropDownState] = useState({})
   const [selectedInvestorDetail,setSelectedInvestorDetail] = useState({})
@@ -23,10 +25,11 @@ function DeleteAccountOfInvestor() {
     if(selectedInvestorDetail==undefined) return toast.error("Select Investor")
     alert("This will delete all the Investor data")
     try {
-      // const response = await deleteDoc(doc(db,`users/${selectedInvestorDetail?.id}`))
+      const response = await deleteDoc(doc(db,`users/${selectedInvestorDetail?.id}`))
+      router.push('/manage')
       //* deleting user from authentication(not getting code)
       // await getAuth().deleteUser(uid)
-      await deleteUser(auth,selectedInvestorDetail?.uid)
+      // await deleteUser(auth,selectedInvestorDetail?.uid)
     } catch (error) {
       
     }
