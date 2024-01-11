@@ -9,6 +9,7 @@ function SelectInvestor({investors,setInvestors,selectedInvestorDropDownState,se
         const fetchInvestors = async()=>{
             try {
                     const data = await getDocs(usersColletionRef)
+                    console.log(data);
                     setInvestors(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
             } catch (error) {
                 console.log(error);
@@ -19,7 +20,7 @@ function SelectInvestor({investors,setInvestors,selectedInvestorDropDownState,se
 
   return (
     <>
-     <select name="" id="" value={selectedInvestorDropDownState} onChange={e=>setSelectedInvestorDropDownState(e.target.value)}>
+     <select name="" id="" value={selectedInvestorDropDownState && selectedInvestorDropDownState} onChange={e=>setSelectedInvestorDropDownState && setSelectedInvestorDropDownState(e.target.value)}>
             <option value="">Select Investor</option>
             {investors?.map((e)=>(
                 <option key={e?.id} value={e?.id}>{e?.fullName}</option>
