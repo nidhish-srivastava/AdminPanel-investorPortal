@@ -39,7 +39,7 @@ function CreateAccount() {
             const userId = response?.user?.uid
             if (userId?.length > 1) {
                 try {
-                    const res = await addDoc(usersCollectionRef,{email,fullName})
+                    const res = await addDoc(usersCollectionRef,{email,fullName,uid : userId})
                     if(res.id!=null){
                         toast.success("Account created successfully")
                         setLoading(false)

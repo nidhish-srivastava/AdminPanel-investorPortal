@@ -4,14 +4,13 @@ import Image from "next/image"
 import NavHeader from "@/components/Navbar/HeaderBackNav"
 import { useParams, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { FieldValue, arrayUnion, collection, doc, getDoc, updateDoc } from "firebase/firestore"
+import { arrayUnion,  doc, getDoc, updateDoc } from "firebase/firestore"
 import { db } from "@/utils/firebase";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import RupeeIcon from "@/components/Icons/RupeeIcon"
 import Button from '@/components/Button'
 import { LoaderIcon } from 'react-hot-toast'
-import Link from 'next/link'
 
 function Page() {
     const [obj, setObj] = useState({})
