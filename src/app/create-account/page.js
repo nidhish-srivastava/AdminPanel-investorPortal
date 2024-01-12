@@ -35,7 +35,7 @@ function CreateAccount() {
         }
         setLoading(true)
         try {
-            const {email,fullName,password} = investorDetails
+            const {email,fullName,password,number} = investorDetails
             const response = await createUserWithEmailAndPassword(auth, email, password)
             const userId = response?.user?.uid
             if (userId?.length > 1) {
