@@ -22,7 +22,6 @@ function CreateAccount() {
         setInvestorDetails((prev) => ({ ...prev, [name]: value }))
     }
 
-    console.log(investorDetails);
 
     const createAccHandler = async()=>{
         if(investorDetails.email?.length==0){
