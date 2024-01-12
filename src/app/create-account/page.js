@@ -14,7 +14,8 @@ function CreateAccount() {
     const [investorDetails, setInvestorDetails] = useState({
         email: "",
         password: "",
-        fullName: ""
+        fullName: "",
+        number : ""
     })
     const changeHandler = (e) => {
         const { name, value } = e.target
@@ -39,11 +40,11 @@ function CreateAccount() {
             const userId = response?.user?.uid
             if (userId?.length > 1) {
                 try {
-                    const res = await addDoc(usersCollectionRef,{email,fullName,uid : userId,isBanned:false,verified:true})
+                    const res = await addDoc(usersCollectionRef,{email,fullName,number,uid : userId,isBanned:false,verified:true})
                     if(res.id!=null){
                         toast.success("Account created successfully")
                         setLoading(false)
-                        setInvestorDetails({fullName:"",password:"",email:""})
+                        setInvestorDetails({fullName:"",password:"",email:"",number : ""})
                     }
                 } catch (error) {
              toast.error("Error while creating acc,Check credentials properly")    
@@ -74,6 +75,10 @@ function CreateAccount() {
                 <div>
                     <label htmlFor="name" className="create-acc-label">Enter Investor's Name</label>
                     <input type="text" placeholder="Name..." name="fullName" value={investorDetails.fullName} onChange={changeHandler} />
+                </div>
+                <div>
+                    <label htmlFor="number" className="create-acc-label">Enter Investor's Phone Number</label>
+                    <input type="tel" placeholder="Phone Number" name="number" value={investorDetails.number} onChange={changeHandler} />
                 </div>
                 {/* <div>
                     <label htmlFor="" className="create-acc-label">Enter Investment Amount</label>
