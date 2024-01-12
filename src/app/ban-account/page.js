@@ -25,7 +25,7 @@ function DeleteAccountOfInvestor() {
     try {
       // const response = await deleteDoc(doc(db,`users/${selectedInvestorDetail?.id}`))
       await updateDoc(doc(db,`users/${selectedInvestorDetail?.id}`),{"isBanned" : true})
-      router.push('/manage')
+      toast.success("Account banned successfully")
     } catch (error) {
       
     }
