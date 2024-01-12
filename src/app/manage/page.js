@@ -4,7 +4,8 @@ import Image from "next/image"
 import Link from "next/link"
 import report from '../../assets/report.png'
 import suggestion from '../../assets/suggestion.png'
-import deleteAccount from '../../assets/delete-user.png'
+import bannedAccounts from '../../assets/banned-accounts.png'
+import banAccount from '../../assets/manage.png'
 import Header from "@/components/Navbar/Header"
 
 function Manage() {
@@ -24,10 +25,16 @@ function Manage() {
           View Suggestions
           </div>
         </Link>
-        <Link href={`/delete-account`}>
+        <Link href={`/ban-account`}>
           <div className="manage-section-divs">
-            <Image src={deleteAccount} width={50} height={50} alt="delete-investor"/>
-            Delete Investor Account
+            <Image src={bannedAccounts} width={50} height={50} alt="delete-investor"/>
+            Ban Investor Account
+          </div>
+        </Link>
+        <Link href={`/banned-accounts`}>
+          <div className="manage-section-divs">
+            <Image src={banAccount} width={50} height={50} alt="delete-investor"/>
+            Banned Accounts
           </div>
         </Link>
     </section>

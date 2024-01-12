@@ -3,14 +3,12 @@ import Button from "@/components/Button"
 import Header from "@/components/Navbar/HeaderBackNav"
 import SelectInvestor from "@/components/SelectInvestor"
 import { db } from "@/utils/firebase"
-import { deleteUser, getAuth } from "firebase/auth"
-import { deleteDoc, doc } from "firebase/firestore"
+import {  doc, updateDoc } from "firebase/firestore"
 import { useRouter } from "next/navigation"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 import toast, { Toaster } from "react-hot-toast"
 
 function DeleteAccountOfInvestor() {
-  // const auth = getAuth()
   const router = useRouter()
   const [investors,setInvestors] = useState([])
   const [selectedInvestorDropDownState,setSelectedInvestorDropDownState] = useState({})
@@ -21,15 +19,13 @@ function DeleteAccountOfInvestor() {
     const res = investors.find(e=>e.id==selectedInvestorDropDownState)
     setSelectedInvestorDetail(res)
   }
-  const deleteInvestorAccountHandler = async() =>{
+  const banInvestorAccountHandler = async() =>{
     if(selectedInvestorDetail==undefined) return toast.error("Select Investor")
-    alert("This will delete all the Investor data")
+    // alert("This will delete all the Investor data")
     try {
-      const response = await deleteDoc(doc(db,`users/${selectedInvestorDetail?.id}`))
+      // const response = await deleteDoc(doc(db,`users/${selectedInvestorDetail?.id}`))
+      await updateDoc(doc(db,`users/${selectedInvestorDetail?.id}`),{"isBanned" : true})
       router.push('/manage')
-      //* deleting user from authentication(not getting code)
-      // await getAuth().deleteUser(uid)
-      // await deleteUser(auth,selectedInvestorDetail?.uid)
     } catch (error) {
       
     }
@@ -59,7 +55,7 @@ function DeleteAccountOfInvestor() {
       }
     </div>
     <div className="text-center">
-    <Button onClick={deleteInvestorAccountHandler} className={`w-[40%] mt-12`}>Delete account</Button>
+    <Button onClick={banInvestorAccountHandler} className={`w-[40%] mt-12`}>Ban account</Button>
     </div>
     </>
   )

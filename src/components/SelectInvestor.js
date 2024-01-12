@@ -1,5 +1,5 @@
 import { db } from "@/utils/firebase"
-import { collection, getDocs } from "firebase/firestore"
+import { collection, getDocs, query, where } from "firebase/firestore"
 import { useEffect } from "react"
 
 function SelectInvestor({investors,setInvestors,selectedInvestorDropDownState,setSelectedInvestorDropDownState}) {
@@ -8,7 +8,9 @@ function SelectInvestor({investors,setInvestors,selectedInvestorDropDownState,se
     useEffect(()=>{
         const fetchInvestors = async()=>{
             try {
-                    const data = await getDocs(usersColletionRef)
+                const filterBanInvestorQuery = query(usersColletionRef,where("isBanned","!=",true))
+                    const data = await getDocs(filterBanInvestorQuery)
+                    // const data = await getDocs(usersColletionRef)
                     setInvestors(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
             } catch (error) {
                 console.log(error);
