@@ -22,6 +22,8 @@ function CreateAccount() {
         setInvestorDetails((prev) => ({ ...prev, [name]: value }))
     }
 
+    console.log(investorDetails);
+
     const createAccHandler = async()=>{
         if(investorDetails.email?.length==0){
            return toast.error("Enter email")
@@ -33,6 +35,10 @@ function CreateAccount() {
            toast.error("Password should be of 6 digits or more")
            return
         }
+        if(investorDetails.number.length==0){
+            toast.error("Enter phone number")
+            return
+        }
         setLoading(true)
         try {
             const {email,fullName,password,number} = investorDetails
@@ -40,7 +46,7 @@ function CreateAccount() {
             const userId = response?.user?.uid
             if (userId?.length > 1) {
                 try {
-                    const res = await addDoc(usersCollectionRef,{email,fullName,number,uid : userId,isBanned:false,verified:true})
+                    const res = await addDoc(usersCollectionRef,{email,fullName,phoneNumber : number,uid : userId,isBanned:false,verified:true})
                     if(res.id!=null){
                         toast.success("Account created successfully")
                         setLoading(false)
