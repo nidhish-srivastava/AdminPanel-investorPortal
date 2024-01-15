@@ -27,7 +27,6 @@ function CreateProject() {
     const {name,value} = e.target
     setProject((prev) => ({ ...prev, [name]: value }))
   }
-  console.log(project);
   const changeCost = (e)=>{
     const numericCost = e.target.value
     setCost(parseInt(numericCost))
