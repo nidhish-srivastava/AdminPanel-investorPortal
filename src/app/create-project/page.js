@@ -18,7 +18,8 @@ function CreateProject() {
     description: "",
     investmentReason: "",
     investmentConditions: "",
-    investmentProgress: []
+    investmentProgress: [],
+    phoneNumber : ""
   })
   const router = useRouter()
   const projectCollectionRef = collection(db, "projects");
@@ -26,6 +27,7 @@ function CreateProject() {
     const {name,value} = e.target
     setProject((prev) => ({ ...prev, [name]: value }))
   }
+  console.log(project);
   const changeCost = (e)=>{
     const numericCost = e.target.value
     setCost(parseInt(numericCost))
@@ -88,7 +90,7 @@ function CreateProject() {
         </div>
         <div>
           <label htmlFor="leader-phoneNumber">Leader's Phone Number</label>
-          <input type="text" placeholder="+91 ..."/>
+          <input type="text" name='phoneNumber' id='leader-phoneNumber' value={project.phoneNumber} onChange={changeHandler} placeholder="+91 ..."/>
         </div>
       </div>
       <div className='my-4 mb-[8rem] text-center'>
