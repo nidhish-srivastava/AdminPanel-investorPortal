@@ -53,7 +53,7 @@ function Home() {
       {loading ? <div style={{ width: "80%", margin: "4rem auto" }}>
         <Skeleton count={5} />
       </div> :
-        <div className="py-4">
+        <div className="mt-4 mb-24">
           <div className="mb-6">
             <h2 className="p-2"><b>{investmentInterest.length}</b> Invesment interests received</h2>
             <h2 className="p-2"><b>{suggestions.length}</b> Suggestion received
