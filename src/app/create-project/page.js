@@ -9,10 +9,10 @@ import Button from '@/components/Button'
 import Header from '@/components/Navbar/HeaderBackNav'
 
 function CreateProject() {
+  const [cost,setCost] = useState("")
   const [project, setProject] = useState({
     name: "",
     leader: "",
-    cost: null,
     startingDate: "",
     endingDate: "",
     description: "",
@@ -23,11 +23,16 @@ function CreateProject() {
   const router = useRouter()
   const projectCollectionRef = collection(db, "projects");
   const changeHandler = (e) => {
-    setProject((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    const {name,value} = e.target
+    setProject((prev) => ({ ...prev, [name]: value }))
+  }
+  const changeCost = (e)=>{
+    const numericCost = e.target.value
+    setCost(parseInt(numericCost))
   }
   const submitProjectHandler = async () => {
     try {
-      const response = await addDoc(projectCollectionRef, { ...project })
+      const response = await addDoc(projectCollectionRef, { ...project,cost })
       if (response.id != null) {
         toast.success("Project Created Successfully")
         await new Promise(resolve => setTimeout(resolve, 1000));
@@ -53,7 +58,7 @@ function CreateProject() {
         </div>
         <div>
           <label htmlFor="project-cost">Project Cost *</label>
-          <input min={0} id="project-cost" name='cost' value={project.cost} onChange={changeHandler} placeholder="Enter the project cost" type="number" />
+          <input  id="project-cost" name='cost' type='number'  value={cost} onChange={changeCost} placeholder="Enter the project cost" />
         </div>
         <div>
           <label htmlFor="project-start-date">Project Starting Date *</label>
