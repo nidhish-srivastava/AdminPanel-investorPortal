@@ -39,19 +39,19 @@ function Page() {
         setInvestmentInterestDetails(JSON.parse(sessionStorage.getItem("investmentInterestDetails")))
         fetchDetails()
     }, [])
-
     const approveInvestment = async () => {
-        const {docId,fullName,investmentAmount} = investmentInterestDetails
+        const {docId,fullName,projectId,investmentAmount} = investmentInterestDetails
         try {
             setBtnLoading(true)
             const updateProjectDoc = await updateDoc(projectDocRef, { "investmentProgress": arrayUnion({ amountInvested: parseInt(investmentAmount), investorName: fullName }) })
             const userDocRef = doc(db,`users/${docId}`)
             const adminDocRef = doc(db,`admin/${investmentInterestDetails.id}`)
-            const updateUserDoc = await updateDoc(userDocRef,{"myInvestments" : arrayUnion(projectDocRef)})
+            const updateUserDoc = await updateDoc(userDocRef,{"myInvestments" : arrayUnion({projectId:projectId,investmentAmount:investmentAmount,projectName : obj.name})})
             const updateApproveStatus = await updateDoc(adminDocRef,{"approved" : true})
             router.push('/')
             setBtnLoading(false)
         } catch (error) {
+            console.log(error);
             setBtnLoading(false)
         }
     }
@@ -91,7 +91,7 @@ function Page() {
                         </div>
                         <div className="text-center">
                             <label htmlFor="" className="label">Investor's Phone Number</label>
-                            <h3 className="label-content">{investmentInterestDetails?.phoneNumber}</h3>
+                            <h3 className="label-content">{investmentInterestDetails?.number}</h3>
                         </div>
                         <div className="text-center">
                             <label htmlFor="" className="label">Amount to Invest</label>
