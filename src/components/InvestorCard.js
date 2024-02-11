@@ -12,7 +12,7 @@ function InvestorCard({ investorObj,fetchInvestor }) {
       return
     }
       sessionStorage.setItem("investmentInterestDetails",JSON.stringify(investorObj))
-      router.push(`/project/${investorObj?.projectId}`)
+      router.push(`/investmentInterest/${investorObj?.projectId}`)
   }
   return (
     <main className='bg-blue-100 mt-8 p-4 rounded-md '>

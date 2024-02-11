@@ -4,7 +4,7 @@ import Image from "next/image"
 import NavHeader from "@/components/Navbar/HeaderBackNav"
 import { useParams, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { arrayUnion,  doc, getDoc, updateDoc } from "firebase/firestore"
+import { arrayRemove, arrayUnion, deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore"
 import { db } from "@/utils/firebase";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -15,11 +15,15 @@ import { LoaderIcon } from 'react-hot-toast'
 function Page() {
     const [obj, setObj] = useState({})
     const param = useParams()
-    const projectDocRef = doc(db, `projects/${param.projectId}`)
     const [skeletonLoading, setSkeletonLoading] = useState(false)
     const [investmentInterestDetails, setInvestmentInterestDetails] = useState({})
     const [btnLoading, setBtnLoading] = useState(false)
+    const [deleteBtnLoading,setDeleteBtnLoading] = useState(false)
     const router = useRouter()
+    const { docId, fullName, projectId, investmentAmount } = investmentInterestDetails
+    const projectDocRef = doc(db, `projects/${param.projectId}`)
+    const userDocRef = doc(db, `users/${docId}`)
+    const adminDocRef = doc(db, `admin/${investmentInterestDetails.id}`)
 
     useEffect(() => {
         const fetchDetails = async () => {
@@ -40,14 +44,11 @@ function Page() {
         fetchDetails()
     }, [])
     const approveInvestment = async () => {
-        const {docId,fullName,projectId,investmentAmount} = investmentInterestDetails
         try {
             setBtnLoading(true)
-            const updateProjectDoc = await updateDoc(projectDocRef, { "investmentProgress": arrayUnion({ amountInvested: parseInt(investmentAmount), investorName: fullName }) })
-            const userDocRef = doc(db,`users/${docId}`)
-            const adminDocRef = doc(db,`admin/${investmentInterestDetails.id}`)
-            const updateUserDoc = await updateDoc(userDocRef,{"myInvestments" : arrayUnion({projectId:projectId,investmentAmount:investmentAmount,projectName : obj.name})})
-            const updateApproveStatus = await updateDoc(adminDocRef,{"approved" : true})
+            await updateDoc(projectDocRef, { "investmentProgress": arrayUnion({ amountInvested: parseInt(investmentAmount), investorName: fullName }) })
+            await updateDoc(userDocRef, { "myInvestments": arrayUnion({ projectId: projectId, investmentAmount: investmentAmount, projectName: obj.name }) })
+            await updateDoc(adminDocRef, { "approved": true })
             router.push('/')
             setBtnLoading(false)
         } catch (error) {
@@ -55,10 +56,52 @@ function Page() {
             setBtnLoading(false)
         }
     }
+    const disapproveInvestment = async () => {
+        // User ka model(need to remove from myInvestments,Project ka model,investmentProgress se htaana padega)
+        // Admin ka model mein approved field ko change krna padega
+        setBtnLoading(true)
+        const userData = await getDoc(userDocRef)
+        const myInvestments = userData.data().myInvestments
+        const projectData = await getDoc(projectDocRef)
+        const projectDataArr = projectData.data().investmentProgress
+        const userDataToRemove = myInvestments.findIndex(item =>
+            item.projectId == projectId
+        )
+        if (userDataToRemove != -1) {
+            myInvestments.splice(userDataToRemove, 1)
+        }
+        const projectDataToRemove = projectDataArr.findIndex(item=>
+            item.investorName == fullName
+            )
+            if (projectDataToRemove != -1) {
+                projectDataArr.splice(projectDataToRemove, 1)
+            }    
+        try {
+            await updateDoc(userDocRef, { "myInvestments": myInvestments })
+            await updateDoc(adminDocRef, { "approved": false })
+            await updateDoc(projectDocRef,{"investmentProgress" : projectDataArr})
+            router.push('/')
+            setBtnLoading(false)
+        } catch (error) {
+            setBtnLoading(false)
+            console.log(error);
+        }
+    }
+
+    const deleteInvestmentInterest = async () => {
+        try {
+            setDeleteBtnLoading(true)
+           await deleteDoc(adminDocRef)
+           router.push('/')
+           setDeleteBtnLoading(false)
+        } catch (error) {
+
+        }
+    }
 
     return (
         <>
-            <NavHeader>Project Details</NavHeader>
+            <NavHeader>Investment Details</NavHeader>
             {
                 skeletonLoading ? <div style={{ width: "80%", margin: "4rem auto" }}>
                     <Skeleton count={5} />
@@ -106,15 +149,22 @@ function Page() {
                         <Button className={`p-4 text-sm`}>View Suggestions</Button>
                         </Link>
                     </div> */}
-                    <div className="text-center mt-12">
-                        {investmentInterestDetails.approved ? <Button disable={true}>Approved</Button> : 
-                        <Button className={`btn border-none ${btnLoading ? "opacity-80" : ""}`} onClick={approveInvestment}>
-                            {btnLoading ? <div className="loader">
-                                <LoaderIcon /> Approving
-                            </div> : "Approve Investment"}
-                        </Button>
+                    {/* <div className="text-center mt-12 flex gap-4 justify-center"> */}
+                    <div className="mt-12 w-[70%] mx-auto flex flex-col gap-4 justify-center sm:flex-row">
+                        {investmentInterestDetails.approved ?
+                            <Button className={`btn border-none ${btnLoading ? "opacity-80" : ""}`} onClick={disapproveInvestment}>
+                                {btnLoading ? <div className="loader"><LoaderIcon /> Disapproving</div> : "Disapprove Investment"}
+                            </Button>
+                            :
+                            <Button className={`btn border-none ${btnLoading ? "opacity-80" : ""}`} onClick={approveInvestment}>
+                                {btnLoading ? <div className="loader"><LoaderIcon /> Approving</div> : "Approve Investment"}
+                            </Button>
                         }
+                        <Button onClick={deleteInvestmentInterest} className={`btn border-none ${deleteBtnLoading ? "opacity-80" : ""}`}>
+                        {deleteBtnLoading ? <div className="loader"><LoaderIcon /> Deleting</div> : "Delete Investment Interest"}
+                        </Button>
                     </div>
+
                     {/* <section className="flex justify-center items-center gap-4 mb-4">
                         <div className="text-center">
                             <label htmlFor="" className="text-[13px] text-opacity-50">Project Starting Date</label>
