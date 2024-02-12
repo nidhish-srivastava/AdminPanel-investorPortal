@@ -15,7 +15,7 @@ function Hamburger() {
     }
   return (
     <div className="relative">
-    <span className="absolute z-20 right-2 top-2 p-2 "
+    <span className="absolute z-20 right-2 top-3 p-2 "
       onClick={toggleModal}>
        <span className="relative">
        <svg xmlns="http://www.w3.org/2000/svg" width="3" height="13" viewBox="0 0 3 13" fill="none">
