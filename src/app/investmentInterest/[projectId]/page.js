@@ -13,7 +13,7 @@ import Button from '@/components/Button'
 import { LoaderIcon } from 'react-hot-toast'
 
 function Page() {
-    const [obj, setObj] = useState({})
+    const [projectBrief, setProjectBrief] = useState({})
     const param = useParams()
     const [skeletonLoading, setSkeletonLoading] = useState(false)
     const [investmentInterestDetails, setInvestmentInterestDetails] = useState({})
@@ -33,7 +33,7 @@ function Page() {
                 if (docSnapshot.exists()) {
                     const docData = docSnapshot.data();
                     const id = docSnapshot.id
-                    setObj({ ...docData, id })
+                    setProjectBrief({ ...docData, id })
                     setSkeletonLoading(false)
                 }
             } catch (error) {
@@ -47,7 +47,7 @@ function Page() {
         try {
             setBtnLoading(true)
             await updateDoc(projectDocRef, { "investmentProgress": arrayUnion({ amountInvested: parseInt(investmentAmount), investorName: fullName }) })
-            await updateDoc(userDocRef, { "myInvestments": arrayUnion({ projectId: projectId, investmentAmount: investmentAmount, projectName: obj.name }) })
+            await updateDoc(userDocRef, { "myInvestments": arrayUnion({ projectId: projectId, investmentAmount: investmentAmount, projectName: projectBrief.name }) })
             await updateDoc(adminDocRef, { "approved": true })
             router.push('/')
             setBtnLoading(false)
@@ -99,6 +99,8 @@ function Page() {
         }
     }
 
+    const dateInvestmentInterestSend = new Date(investmentInterestDetails?.timestamp?.seconds * 1000).toDateString()
+
     return (
         <>
             <NavHeader>Investment Details</NavHeader>
@@ -114,15 +116,15 @@ function Page() {
                             alt=""
                         />
                         <div className="flex flex-col items-start gap-2 p-2">
-                            <h2 className="text-[18px] text-violet-700 font-medium">{obj?.name}</h2>
+                            <h2 className="text-[18px] text-violet-700 font-medium">{projectBrief?.name}</h2>
                             <section className="flex justify-center items-center gap-6 mb-4">
                                 <div className="text-center">
                                     <label htmlFor="" className="label">Leader name</label>
-                                    <h3 className="label-content">{obj?.leader}</h3>
+                                    <h3 className="label-content">{projectBrief?.leader}</h3>
                                 </div>
                                 <div className="text-center">
                                     <label htmlFor="" className="label">Cost</label>
-                                    <h3 className="label-content"><RupeeIcon /> {obj?.cost}</h3>
+                                    <h3 className="label-content"><RupeeIcon /> {projectBrief?.cost}</h3>
                                 </div>
                             </section>
                         </div>
@@ -140,6 +142,11 @@ function Page() {
                             <label htmlFor="" className="label">Amount to Invest</label>
                             <h3 className="label-content"><RupeeIcon /> {investmentInterestDetails?.investmentAmount}</h3>
                         </div>
+                        <div className="text-center">
+                            <label htmlFor="" className="label">Date</label>
+                            <h3 className="label-content">{dateInvestmentInterestSend}</h3>
+                        </div>
+                        
                     </section>
                     {/* <div className='flex gap-2 justify-center mt-12 items-center'>
                         <Link href={`${param.projectId}/create-report`}>
@@ -168,7 +175,7 @@ function Page() {
                     {/* <section className="flex justify-center items-center gap-4 mb-4">
                         <div className="text-center">
                             <label htmlFor="" className="text-[13px] text-opacity-50">Project Starting Date</label>
-                            <h3 className="text-[15px] font-semibold">{obj?.startingDate}</h3>
+                            <h3 className="text-[15px] font-semibold">{projectBrief?.startingDate}</h3>
                         </div>
                         <div className="text-center">
                             <label htmlFor="" className="text-[13px] text-opacity-50">Expected Project Ending Date</label>

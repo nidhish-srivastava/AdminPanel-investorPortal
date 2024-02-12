@@ -6,10 +6,12 @@ function Header() {
     <>
       <Hamburger />
       <header className="flex items-center justify-between gap-2 p-4 relative rounded-b-lg bg-blue-700 shadow-md">
+        <Link href={`/`}>
         <h2 className="font-semibold text-white">
           Admin Panel
         </h2>
-        <Link href={`/notification`} className="mr-5">
+        </Link>
+        <Link href={`/notification`} className="mr-10">
           <NotificationSvg/>
         </Link>
       </header>
