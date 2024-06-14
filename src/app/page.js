@@ -7,7 +7,7 @@ function page() {
   const [password, setPassword] = useState("")
   const [loggedIn, setLoggedIn] = useState(false)
   const authenticateAdmin = () => {
-        if(password=="RigGroup@Password123"){
+        if(password==process.env.NEXT_PUBLIC_PASSWORD){
           setLoggedIn(true)
           localStorage.setItem("adminLogIn",true)
         }
